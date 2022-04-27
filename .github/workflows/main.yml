@@ -20,8 +20,9 @@ jobs:
           LLVM_NAME: ${{ secrets.LLVM_NAME}}
           TG_TOKEN: ${{ secrets.TG_TOKEN }}
           TG_CHAT_ID: ${{ secrets.TG_CHAT_ID }}
-          GH_USERNAME: ${{ secrets.GH_USERNAME }}
-          GH_EMAIL: ${{ secrets.GH_EMAIL }}
-          GH_TOKEN: ${{ secrets.GH_TOKEN }}
-          GH_PUSH_REPO_URL: ${{ secrets.GH_PUSH_REPO_URL }}
+          GITLAB_USERNAME: ${{ secrets.GITLAB_USERNAME }}
+          GITLAB_EMAIL: ${{ secrets.GITLAB_EMAIL }}
+          GITLAB_TOKEN: ${{ secrets.GITLAB_TOKEN }}
+          GITLAB_PUSH_REPO_URL: ${{ secrets.GITLAB_PUSH_REPO_URL }}
+          GITLAB_SCRIPT_REPO_URL: ${{ secrets.GITLAB_SCRIPT_REPO_URL }}
         run: ./build-tc.sh

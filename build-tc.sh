@@ -4,11 +4,11 @@
 # LLVM_NAME | Your desired Toolchain Name
 # TG_TOKEN | Your Telegram Bot Token
 # TG_CHAT_ID | Your Telegram Channel / Group Chat ID
-# GH_USERNAME | Your Github Username
-# GH_EMAIL | Your Github Email
-# GH_TOKEN | Your Github Token ( repo & repo_hook )
-# GH_PUSH_REPO_URL | Your Repository for store compiled Toolchain ( without https:// or www. ) ex. github.com/xyz-prjkt/xRageTC.git
-# GH_SCRIPT_REPO_URL | Your Repository contain script to build Toolchain ( without https:// or www. ) ex. github.com/xyz-prjkt/xRageTC.git
+# GITLAB_USERNAME | Your Github Username
+# GITLAB_EMAIL | Your Github Email
+# GITLAB_TOKEN | Your Github Token ( repo & repo_hook )
+# GITLAB_PUSH_REPO_URL | Your Repository for store compiled Toolchain ( without https:// or www. ) ex. github.com/xyz-prjkt/xRageTC.git
+# GITLAB_SCRIPT_REPO_URL | Your Repository contain script to build Toolchain ( without https:// or www. ) ex. github.com/xyz-prjkt/xRageTC.git
 
 # Function to show an informational message
 msg() {
@@ -106,9 +106,9 @@ tg_post_msg "<b>$LLVM_NAME: Toolchain compilation Finished</b>%0A<b>Clang Versio
 
 # Push to GitHub
 # Update Git repository
-git config --global user.name $GH_USERNAME
-git config --global user.email $GH_EMAIL
-git clone "https://$GH_USERNAME:$GH_TOKEN@$GH_PUSH_REPO_URL" rel_repo
+git config --global user.name $GITLAB_USERNAME
+git config --global user.email $GITLAB_EMAIL
+git clone "https://$GITLAB_USERNAME:$GITLAB_TOKEN@$GITLAB_PUSH_REPO_URL" rel_repo
 pushd rel_repo || exit
 rm -fr ./*
 cp -r ../install/* .
@@ -119,7 +119,7 @@ git commit -asm "$LLVM_NAME: Bump to $rel_date build
 LLVM commit: $llvm_commit_url
 Clang Version: $clang_version
 Binutils version: $binutils_ver
-Builder commit: https://$GH_SCRIPT_REPO_URL/commit/$builder_commit"
+Builder commit: https://$GITLAB_SCRIPT_REPO_URL/commit/$builder_commit"
 git push -f
 popd || exit
-tg_post_msg "<b>$LLVM_NAME: Toolchain pushed to <code>https://$GH_PUSH_REPO_URL</code></b>"
+tg_post_msg "<b>$LLVM_NAME: Toolchain pushed to <code>https://$GITLAB_PUSH_REPO_URL</code></b>"
