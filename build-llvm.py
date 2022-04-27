@@ -16,7 +16,7 @@ import urllib.request as request
 from urllib.error import URLError
 
 # This is a known good revision of LLVM for building the kernel
-GOOD_REVISION = '08f70adedb775ce6d41a1f8ad75c4bac225efb5b'
+GOOD_REVISION = '3b2e605e33bd9017ff2eff1493add07822f9d58b'
 
 
 class Directories:
@@ -976,6 +976,10 @@ def stage_specific_cmake_defines(args, dirs, stage):
         if instrumented_stage(args, stage):
             defines['LLVM_BUILD_INSTRUMENTED'] = 'IR'
             defines['LLVM_BUILD_RUNTIME'] = 'OFF'
+            # The next two defines is needed to avoid thousands of warnings
+            # along the lines of:
+            # "Unable to track new values: Running out of static counters."
+            defines['LLVM_LINK_LLVM_DYLIB'] = 'ON'
             defines['LLVM_VP_COUNTERS_PER_SITE'] = '6'
 
         # If we are at the final stage, use PGO/Thin LTO if requested
